@@ -5,6 +5,7 @@ const taskList    = document.querySelector("#task-list");
 const modalWindow = document.querySelector("#modal-edit");
 const editInput   = document.querySelector("#edit-task__input");
 const applyBtn    = document.querySelector("#apply-task__btn");
+const exitBtn     = document.querySelector("#exit");
 
 addTaskBtn.addEventListener("click", () => {
   addTask(inputTask.value);
@@ -77,7 +78,10 @@ function editTask(ind) {
   modalWindow.style.display = "block";
   editInput.value = taskArr[ind].value;
   applyBtn.addEventListener("click", apply);
-
+  exitBtn.addEventListener("click", () => {
+    modalWindow.style.display = "none";
+    applyBtn.removeEventListener("click", apply, false);
+  })
   function apply() {
     taskArr[ind].value = editInput.value;
     renderTaskList();

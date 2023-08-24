@@ -1,16 +1,36 @@
-const taskArr     = [];
-const inputTask   = document.querySelector("#add-task__input");
-const addTaskBtn  = document.querySelector("#add-task__btn");
-const taskList    = document.querySelector("#task-list");
-const modalWindow = document.querySelector("#modal-edit");
-const editInput   = document.querySelector("#edit-task__input");
-const applyBtn    = document.querySelector("#apply-task__btn");
-const exitBtn     = document.querySelector("#exit");
+const taskArr        = [
+  { value: "The first task", active: 0 }, 
+  { value: "The second task", active: 1 }
+];
 
+const inputTask      = document.querySelector("#add-task__input");
+const addTaskBtn     = document.querySelector("#add-task__btn");
+const taskList       = document.querySelector("#task-list");
+const modalWindow    = document.querySelector("#modal-edit");
+const editInput      = document.querySelector("#edit-task__input");
+const applyBtn       = document.querySelector("#apply-task__btn");
+const exitBtn        = document.querySelector("#exit");
+const dateNumber     = document.querySelector("#date-number");
+const dateMounth     = document.querySelector("#date-mounth");
+const dateYear       = document.querySelector("#date-year");
+const dateDay        = document.querySelector("#date-day");
+
+//first render
+window.addEventListener("DOMContentLoaded", renderTaskList())
+
+//date block
+let today = new Date();
+dateNumber.innerHTML = today.toLocaleString('en-US', {day: 'numeric'});
+dateMounth.innerHTML = today.toLocaleString('en-US', {month: 'long'});
+dateYear.innerHTML = today.toLocaleString('en-US', {year: 'numeric'});
+dateDay.innerHTML = today.toLocaleString('en-US', {weekday: 'long',});
+
+//add task event
 addTaskBtn.addEventListener("click", () => {
   addTask(inputTask.value);
 });
 
+//add task funck
 function addTask(value) {
   isEmpty(value)
     ? alert("no task message")
@@ -23,7 +43,7 @@ function addTask(value) {
 function renderTaskList() {
   // to render task list
   taskArr.length == 0
-    ? (taskList.innerHTML = "no task")
+    ? (taskList.innerHTML = "No tasks")
     : (taskList.innerHTML = ""),
     taskArr.map((el, ind) => {
       taskList.append(createBox(el.value, ind));
@@ -40,35 +60,44 @@ function createBox(el, ind) {
   par.innerText = el;
   div.appendChild(par);
 
+  //create wrapper div for function btn
+  const secDiv = document.createElement("div");
+  secDiv.classList.add("task-list__btn-container");
+
   // create remove btn
-  const btn = document.createElement("button");
-  btn.classList.add("task-list__item-btn");
-  btn.innerText = "X";
-  btn.addEventListener("click", () => {
+  const remImg = document.createElement("img");
+  remImg.classList.add("task-list__item-btn");
+  remImg.setAttribute("src", `img/remove.png`);
+  remImg.setAttribute("alt", `delete icon`);
+  remImg.addEventListener("click", () => {
     taskArr.splice(ind, 1);
     renderTaskList();
   });
-  div.appendChild(btn);
+  secDiv.appendChild(remImg);
 
   // create disable btn
-  const btnDisable = document.createElement("button");
-  btnDisable.classList.add("task-list__item-btn");
-  btnDisable.innerText = "disable";
-  btnDisable.addEventListener("click", () => {
+  const disImg = document.createElement("div");
+  disImg.classList.add("task-list__item-done");
+  disImg.classList.add(taskArr[ind].active ? null : "done");
+  disImg.addEventListener("click", () => {
     taskArr[ind].active = 0;
     document.querySelector(`#task${ind}`).classList.toggle("disabled");
+    disImg.classList.toggle("done");
   });
-  div.appendChild(btnDisable);
+  secDiv.appendChild(disImg);
 
   // create edit task btn
-  const btnEdit = document.createElement("button");
-  btnEdit.classList.add("task-list__item-btn");
-  btnEdit.innerText = "edit";
-  btnEdit.addEventListener("click", () => {
+  const editImg = document.createElement("img");
+  editImg.classList.add("task-list__item-btn");
+  editImg.setAttribute("src", `img/edit.png`);
+  editImg.setAttribute("alt", `edit icon`);
+  editImg.addEventListener("click", () => {
     editTask(ind);
     console.log(ind);
   });
-  div.appendChild(btnEdit);
+  secDiv.appendChild(editImg);
+
+  div.appendChild(secDiv);
 
   return div;
 }

@@ -1,29 +1,29 @@
-const taskArr        = [
-  { value: "The first task", active: 0 }, 
-  { value: "The second task", active: 1 }
+const taskArr = [
+  { value: "The first task", active: 0 },
+  { value: "The second task", active: 1 },
 ];
 
-const inputTask      = document.querySelector("#add-task__input");
-const addTaskBtn     = document.querySelector("#add-task__btn");
-const taskList       = document.querySelector("#task-list");
-const modalWindow    = document.querySelector("#modal-edit");
-const editInput      = document.querySelector("#edit-task__input");
-const applyBtn       = document.querySelector("#apply-task__btn");
-const exitBtn        = document.querySelector("#exit");
-const dateNumber     = document.querySelector("#date-number");
-const dateMounth     = document.querySelector("#date-mounth");
-const dateYear       = document.querySelector("#date-year");
-const dateDay        = document.querySelector("#date-day");
+const inputTask = document.querySelector("#add-task__input");
+const addTaskBtn = document.querySelector("#add-task__btn");
+const taskList = document.querySelector("#task-list");
+const modalWindow = document.querySelector("#modal-edit");
+const editInput = document.querySelector("#edit-task__input");
+const applyBtn = document.querySelector("#apply-task__btn");
+const exitBtn = document.querySelector("#exit");
+const dateNumber = document.querySelector("#date-number");
+const dateMounth = document.querySelector("#date-mounth");
+const dateYear = document.querySelector("#date-year");
+const dateDay = document.querySelector("#date-day");
 
 //first render
-window.addEventListener("DOMContentLoaded", renderTaskList())
+window.addEventListener("DOMContentLoaded", renderTaskList());
 
 //date block
 let today = new Date();
-dateNumber.innerHTML = today.toLocaleString('en-US', {day: 'numeric'});
-dateMounth.innerHTML = today.toLocaleString('en-US', {month: 'long'});
-dateYear.innerHTML = today.toLocaleString('en-US', {year: 'numeric'});
-dateDay.innerHTML = today.toLocaleString('en-US', {weekday: 'long',});
+dateNumber.innerHTML = today.toLocaleString("en-US", { day: "numeric" });
+dateMounth.innerHTML = today.toLocaleString("en-US", { month: "long" });
+dateYear.innerHTML = today.toLocaleString("en-US", { year: "numeric" });
+dateDay.innerHTML = today.toLocaleString("en-US", { weekday: "long" });
 
 //add task event
 addTaskBtn.addEventListener("click", () => {
@@ -80,7 +80,7 @@ function createBox(el, ind) {
   disImg.classList.add("task-list__item-done");
   disImg.classList.add(taskArr[ind].active ? null : "done");
   disImg.addEventListener("click", () => {
-    taskArr[ind].active = 0;
+    taskArr[ind].active ? (taskArr[ind].active = 0) : (taskArr[ind].active = 1);
     document.querySelector(`#task${ind}`).classList.toggle("disabled");
     disImg.classList.toggle("done");
   });
@@ -110,7 +110,7 @@ function editTask(ind) {
   exitBtn.addEventListener("click", () => {
     modalWindow.style.display = "none";
     applyBtn.removeEventListener("click", apply, false);
-  })
+  });
   function apply() {
     taskArr[ind].value = editInput.value;
     renderTaskList();

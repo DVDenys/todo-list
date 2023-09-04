@@ -32,7 +32,6 @@
       <section class="todo">
         <article id="task-list" class="todo__task-list task-list">
           <div class="task-list__item">
-            <!-- <p class="task-list__item-text">No task</p> -->
           </div>
         </article>
         <article class="todo__add-task add-task">
@@ -41,9 +40,11 @@
         </article>
       </section>
       <section id="modal-edit" class="modal-window">
-        <button id="exit">Exit</button>
-        <input id="edit-task__input" type="text" placeholder="Add your task?" />
-        <button id="apply-task__btn">Apply</button>
+        <div class="modal__content">
+          <img id="exit" src="img//close.png" alt="close modal window" class="modal__exit-btn"/>
+          <input id="edit-task__input" class="modal__input" type="text" placeholder="Add your task?" />
+          <button id="apply-task__btn" class="modal__apply-btn">Apply</button>
+        </div>
       </section>
     </div>
   </main>

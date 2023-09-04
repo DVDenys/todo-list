@@ -29,6 +29,11 @@ dateDay.innerHTML = today.toLocaleString("en-US", { weekday: "long" });
 addTaskBtn.addEventListener("click", () => {
   addTask(inputTask.value);
 });
+inputTask.addEventListener("keypress", (e) => {
+  if (e.key === 'Enter') {
+    addTask(inputTask.value);
+  }
+});
 
 //add task funck
 function addTask(value) {
@@ -104,7 +109,7 @@ function createBox(el, ind) {
 
 // edit task function
 function editTask(ind) {
-  modalWindow.style.display = "block";
+  modalWindow.style.display = "flex";
   editInput.value = taskArr[ind].value;
   applyBtn.addEventListener("click", apply);
   exitBtn.addEventListener("click", () => {
